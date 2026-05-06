@@ -40,7 +40,7 @@ apex.server.process(
 
 -----------------------------page loard trriger-----------------------------------------
 
-Reload Full Page in Dynamic Trigger
+-------Reload Full Page in Dynamic Trigger-----
 
 location.reload();
 
