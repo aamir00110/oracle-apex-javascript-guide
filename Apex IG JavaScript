@@ -1,6 +1,3 @@
-# Apex IG JavaScript
-
-
 ---------------------ig enable/Disable--------------------------------------
 -----------------F12 --action list on YOUR_IG in console-------------------
 
@@ -17,3 +14,6 @@ var actions = ig.interactiveGrid("getActions");
 // Disable actions
 actions.disable("row-duplicate");
 actions.disable("row-delete");
+ 
+---------------live Fetch Items Data--------------
+apex.item("P7_LINE_ID").getValue();
