@@ -1,9 +1,13 @@
 ---------------------ig enable/Disable--------------------------------------
-region     ----staticID----
-  └── widget()
-        └── interactiveGrid()
-              └── getViews("grid")
-                    └── model (actual data)
+region                                                                             ----apex.region("emp_ig");----
+  └── widget()                                                                     ----apex.region("emp_ig").widget();--- 
+        └── interactiveGrid()                                                      ----ig$.interactiveGrid();----
+              └── getViews("grid")                                                 ----ig$.interactiveGrid("getViews","grid");----
+                    └── model (actual data)                                         IG multiple getViews support karta hai:
+                                                                                  |  View	    |      Meaning
+                                                                                  |  grid	    |      table view (rows/columns)
+                                                                                  |  icon	    |      card view
+                                                                                  |  detail	  |      record view
 
 -----------------F12 --action list on YOUR_IG in console-------------------
 
