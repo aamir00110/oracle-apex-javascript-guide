@@ -1,4 +1,10 @@
 ---------------------ig enable/Disable--------------------------------------
+region     ----staticID----
+  └── widget()
+        └── interactiveGrid()
+              └── getViews("grid")
+                    └── model (actual data)
+
 -----------------F12 --action list on YOUR_IG in console-------------------
 
 var ig = apex.region("YOUR_IG_STATIC_ID").widget();
