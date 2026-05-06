@@ -26,4 +26,19 @@ actions.disable("row-duplicate");
 actions.disable("row-delete");
  
 ---------------live Fetch Items Data--------------
+
 apex.item("P7_LINE_ID").getValue();
+
+-------------------GET CURRENT IG VALUES-------------
+
+var grid = apex.region("YOUR_IG_STATIC_ID").widget().interactiveGrid("getViews","grid");
+var model = grid.model;
+var ids = [];
+model.forEach(function (record) {
+ids.push(model.getValue(record, "INVENTORY_ITEM_ID"));
+ids.push(model.getValue(record, "ITEM_TYPE"));
+});
+console.log("INVENTORY ITEM IDS:", ids);
+console.log("ITEM TYPES:", ids);
+
+
