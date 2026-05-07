@@ -16,6 +16,27 @@ var actions =ig.interactiveGrid("getActions");
 actions.list();
 
 
+-------------------IG RECORDS SELECTION VALUE INTO :PXXXX_ITEMS-----------------
+
+  var ig = apex.region("YOUR_IG_STATIC_ID").widget();
+var grid = ig.interactiveGrid("getViews","grid");
+var model = grid.model;
+var selectedRecords = grid.view$.grid("getSelectedRecords");
+
+if (selectedRecords.length > 0) {
+
+    var lineId = model.getValue(selectedRecords[0], "LINE_ID");
+
+    // sirf item set
+    $s("P7_LINE_ID", lineId);
+
+    console.log("LINE_ID set in item:", lineId);
+}
+
+
+
+
+
 ------------row level---------------
 
 var ig = apex.region("YOUR_IG_STATIC_ID").widget();
@@ -40,5 +61,9 @@ ids.push(model.getValue(record, "ITEM_TYPE"));
 });
 console.log("INVENTORY ITEM IDS:", ids);
 console.log("ITEM TYPES:", ids);
+
+
+
+
 
 
