@@ -4,10 +4,10 @@ region                                                                          
         └── interactiveGrid()                                                      ----ig$.interactiveGrid();----
               └── getViews("grid")                                                 ----ig$.interactiveGrid("getViews","grid");----
                     └── model (actual data)                                         IG multiple getViews support karta hai:
-                                                                                  |  View	    |      Meaning
-                                                                                  |  grid	    |      table view (rows/columns)
-                                                                                  |  icon	    |      card view
-                                                                                  |  detail	  |      record view
+                                                                                  |  View	    |      Meaning                    |
+                                                                                  |  grid	    |      table view (rows/columns)  |
+                                                                                  |  icon	    |      card view                  | 
+                                                                                  |  detail	  |      record view                |
 
 -----------------F12 --action list on YOUR_IG in console-------------------
 
