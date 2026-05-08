@@ -32,8 +32,11 @@ if (selectedRecords.length > 0) {
 
     console.log("LINE_ID set in item:", lineId);
 }
+-----SET VALUE SEASION STATE WITH AJAZ PROCESS----
 
-
+BEGIN
+   APEX_UTIL.SET_SESSION_STATE('P20_HEADER_ID_SIZE_DETAIL',apex_application.g_x01);
+END;
 
 
 
