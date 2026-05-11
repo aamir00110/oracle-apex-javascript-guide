@@ -18,14 +18,18 @@ EXCEPTION
 END;
 
 ---------------TRIGGER--------------------
+
 var trackingNo = $v("P3_TRACKING_NO");
+
+var style = $v("P3_STYLE");
 
 if(trackingNo){
 
     apex.server.process(
         "GET_REQ_QTY",
         {
-            x01: trackingNo
+            x01: trackingNo,
+            x02: style
         },
         {
             success: function(pData){
