@@ -48,7 +48,20 @@ var actions = ig.interactiveGrid("getActions");
 // Disable actions
 actions.disable("row-duplicate");
 actions.disable("row-delete");
- 
+
+------------------------------IG HEADER ACTION--------------
+function(config) {
+    config.initActions = function(actions) {
+        // "selection-duplicate" ko complete remove kar dein
+        actions.remove("selection-duplicate");
+        actions.remove("selection-copy");
+        actions.remove("row-duplicate");
+    };
+    return config;
+}
+
+
+
 ---------------live Fetch Items Data--------------
 
 apex.item("P7_LINE_ID").getValue();
