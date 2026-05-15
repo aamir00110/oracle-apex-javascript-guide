@@ -1,16 +1,3 @@
-# Global Js code For Apex
-
-🏷️ Colorful badges — Oracle APEX, JavaScript, Urdu+English, 100+ Questions
-📖 Description — Urdu aur English dono mein
-✨ Features list — kya kya milega is guide mein
-📚 Table of Contents — 8 chapters ka table
-🔥 Sample code — 4 real examples
-📥 How to Use — PDF download ya khud generate karne ka tarika
-📂 File structure — repository ki files ka khaka
-🧠 Topics covered — tamam topics ki list
-⭐ Star/Contribute section
-
-
 # 💻 Tech Stack:
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Portfolio](https://img.shields.io/badge/Portfolio-%23000000.svg?style=for-the-badge&logo=firefox&logoColor=#FF7139) ![Power Bi](https://img.shields.io/badge/power_bi-F2C811?style=for-the-badge&logo=powerbi&logoColor=black) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 # 📊 GitHub Stats:
