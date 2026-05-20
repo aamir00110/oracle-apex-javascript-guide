@@ -1,1 +1,109 @@
 
+----Master BOM tracking no
+Tracking no Dynamic action
+
+apex.server.process(
+    "GET_TRACKING_DETAIL",
+    {
+        x01: $v("P7_TRACKING_NO")
+    },
+    {
+        dataType: "json",
+
+        success: function(pData) {
+
+            $s("P7_RETAILER_DEPT",     	pData.RETAILER_DEPT);
+            $s("P7_INVOICING_UNIT_ID", 	pData.INVOICING_UNIT_ID);
+            $s("P7_BUYER_ID",          	pData.BUYER_ID);
+            // $s("P7_PS_CODE",           	pData.PS_CODE);
+            $s("P7_BUYER_NAME",        	pData.BUYER_NAME);
+            $s("P7_STYLE_NAME",        	pData.STYLE_NAME);
+			$s("P7_SEASON_NAME",        pData.SEASON_NAME);
+			$s("P7_BRAND",        	    pData.BRAND);
+			$s("P7_TRACKING_MODE",      pData.TRACKING_MODE);
+            $s("P7_STYLE_NO",           pData.STYLE_NO);
+            $s("P7_TRACKING_MODE_DESC", pData.TRACKING_MODE_DESC);
+            $s("P7_TRACKING_STATUS",    pData.TRACKING_STATUS);
+            $s("P7_INVOICING_UNIT_NAME",pData.INVOICING_UNIT_NAME);
+            $s("P7_BUYER_AGENT_NAME",   pData.BUYER_AGENT_NAME);
+            $s("P7_SUM_ASSIGNED_BPO_QUANTITY",   pData.SUM_ASSIGNED_BPO_QUANTITY);
+			
+        },
+
+        error: function(err) {
+            console.log("AJAX Error:", err);
+        }
+    }
+);
+
+
+
+
+----------------GET_TRACKING_DETAIL AJAX CALL BACK PROCESS------
+
+
+DECLARE
+
+BEGIN
+
+    apex_json.open_object;
+
+    FOR i IN (
+
+        SELECT p.RETAILER_DEPT,
+               p.INVOICING_UNIT_ID,
+               p.BUYER_ID,
+            --    p.PS_CODE,
+
+    -- disply only
+               (SELECT ac.customer_name FROM apps.ar_customers@adf ac WHERE ac.customer_id = p.BUYER_ID) AS BUYER_NAME,
+			   (SELECT d.season_name    FROM pwc_mt_season_details_d d   WHERE d.tracking_no = p.TRACKING_NO) AS SEASON_NAME,
+			   (SELECT bh.tracking_mode    FROM pwc_mt_buyer_details_h bh   WHERE bh.buyer_id = p.BUYER_ID) AS TRACKING_MODE,
+               (SELECT DECODE (bh.tracking_mode,'MS','Master Style','CS', 'Child Style') 
+			                   FROM pwc_mt_buyer_details_h bh   WHERE bh.buyer_id = p.BUYER_ID) AS TRACKING_MODE_DESC,
+                (SELECT d.season_status FROM pwc_mt_season_details_d d WHERE d.tracking_no = p.TRACKING_NO) AS TRACKING_STATUS,
+                (SELECT hou.name FROM apps.hr_organization_units@adf hou WHERE hou.organization_id = p.INVOICING_UNIT_ID) AS INVOICING_UNIT_NAME,
+                (SELECT TRIM(MAX(wph.buyer_agent_name))   FROM pwc_ont_wvn_precosting_h wph  WHERE  wph.tracking_no = p.TRACKING_NO) AS BUYER_AGENT_NAME,
+                NVL ((SELECT SUM (NVL (bom_bpo_l.final_order_quantity, 0)) FROM pwc_ont_wvn_master_bom_bpo_l bom_bpo_l 
+                               WHERE bom_bpo_l.header_id = p.HEADER_ID), 0) AS SUM_ASSIGNED_BPO_QUANTITY, 
+
+                -- (SELECT COUNT (1)    FROM pwc_file_upd_dwn ff   WHERE ff.file_id = 'WBOM' || p.BOM_NUMBER) AS VIEW_ATTR,
+
+    -- FUNCTION STYLE NAME
+               pwc_master_tracking_data_func(p.TRACKING_NO, 'STYLE_NAME') AS STYLE_NAME,
+               pwc_master_tracking_data_func (p.TRACKING_NO, 'STYLE_NO') AS STYLE_NO,
+			   pwc_master_tracking_data_func (p.TRACKING_NO, 'BRAND_DESCRIPTION') AS BRAND
+			   FROM PWC_ONT_WVN_PRECOSTING_H p
+			   WHERE p.TRACKING_NO = apex_application.g_x01
+    )
+    LOOP
+
+        apex_json.write('RETAILER_DEPT', i.RETAILER_DEPT);
+        apex_json.write('INVOICING_UNIT_ID', i.INVOICING_UNIT_ID);
+        apex_json.write('BUYER_ID', i.BUYER_ID);
+        -- apex_json.write('PS_CODE', i.PS_CODE);
+        apex_json.write('BUYER_NAME', i.BUYER_NAME);
+        apex_json.write('STYLE_NAME', i.STYLE_NAME);
+		apex_json.write('SEASON_NAME', i.SEASON_NAME);
+		apex_json.write('BRAND', i.BRAND);
+		apex_json.write('TRACKING_MODE', i.TRACKING_MODE);
+        apex_json.write('STYLE_NO', i.STYLE_NO);
+        apex_json.write('TRACKING_MODE_DESC', i.TRACKING_MODE_DESC);
+        apex_json.write('TRACKING_STATUS', i.TRACKING_STATUS);
+        apex_json.write('INVOICING_UNIT_NAME', i.INVOICING_UNIT_NAME);
+        apex_json.write('BUYER_AGENT_NAME', i.BUYER_AGENT_NAME);
+        apex_json.write('SUM_ASSIGNED_BPO_QUANTITY', i.SUM_ASSIGNED_BPO_QUANTITY);
+        
+
+    END LOOP;
+
+    apex_json.close_object;
+
+END;
+
+
+
+
+
+
+
