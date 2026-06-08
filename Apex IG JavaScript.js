@@ -115,7 +115,26 @@ if (disableAll) {
     actions.show("row-refresh");
 }
 
+------------------------------------live time and date in ig ------------------------
+setInterval(function () {
+    var now = new Date();
 
+    var formatted =
+        now.getFullYear() + "-" +
+        String(now.getMonth()+1).padStart(2,'0') + "-" +
+        String(now.getDate()).padStart(2,'0') + " " +
+        String(now.getHours()).padStart(2,'0') + ":" +
+        String(now.getMinutes()).padStart(2,'0') + ":" +
+        String(now.getSeconds()).padStart(2,'0');
+
+    var ig = apex.region("static_id").widget().interactiveGrid("getViews", "grid");
+    var model = ig.model;
+
+    model.forEach(function(record){
+        model.setValue(record, "DOCUMENT_DATE", formatted);
+    });
+
+}, 1000);
 
 
 
