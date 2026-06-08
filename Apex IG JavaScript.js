@@ -78,6 +78,42 @@ ids.push(model.getValue(record, "ITEM_TYPE"));
 console.log("INVENTORY ITEM IDS:", ids);
 console.log("ITEM TYPES:", ids);
 
+------------------------------ig delete , dublicate, remove rows user wise--------------
+var view = apex.region("static_id").widget().interactiveGrid("getViews", "grid");
+var model = view.model;
+var selectedRecords = view.getSelectedRecords();
+var actions = apex.region("static_id").widget().interactiveGrid("getActions");
+
+var user = $v("P10_APP_USER");
+var isAmir = (user && user.toUpperCase() === "AMIR");
+
+var disableAll = false;
+
+// Agar AMIR nahi hai to sab actions hide
+if (!isAmir) {
+    disableAll = true;
+}
+
+if (disableAll) {
+
+    // ❌ Non-AMIR: everything hidden
+    actions.hide("row-duplicate");
+    actions.hide("row-delete");
+    actions.hide("selection-duplicate");
+    actions.hide("selection-delete");
+    actions.hide("row-add");
+    actions.hide("row-refresh");
+
+} else {
+
+    // ✔ AMIR: everything allowed
+    actions.show("row-duplicate");
+    actions.show("row-delete");
+    actions.show("selection-duplicate");
+    actions.show("selection-delete");
+    actions.show("row-add");
+    actions.show("row-refresh");
+}
 
 
 
