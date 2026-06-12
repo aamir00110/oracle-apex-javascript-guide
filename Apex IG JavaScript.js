@@ -15,6 +15,12 @@ var ig = apex.region("YOUR_IG_STATIC_ID").widget();
 var actions =ig.interactiveGrid("getActions");
 actions.list();
 
+-------------IG COLUMN VALUE FETCH--------------
+
+var ig$ = apex.region("my_ig").widget();
+var grid = ig$.interactiveGrid("getViews", "grid");
+var model = grid.model;
+model.forEach(function(record) {console.log("ROW DATA:", record);});
 
 -------------------IG RECORDS SELECTION VALUE INTO :PXXXX_ITEMS-----------------
 
